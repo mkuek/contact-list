@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-
+import Contact from "./Components/Contact";
 const initial = {
   contactName: "John",
   email: "john@gmail.com",
@@ -12,31 +12,33 @@ const initial = {
 };
 
 function App() {
-  const [contacts, setContacts] = useState(initial);
+  const [formContents, setFormContacts] = useState(initial);
   const [contactList, setContactList] = useState([]);
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setContacts({ ...contacts, [name]: value });
+    setFormContacts({ ...formContents, [name]: value });
   };
 
-  const createContact = (contactInfo) => {
-    const updatedContacts = [...contacts];
-    updatedContacts.push(contactInfo);
-    setContactList({ contacts: updatedContacts });
-  };
+  // const createContact = (contactInfo) => {
+  //   const updatedContacts = [...contacts];
+  //   updatedContacts.push(contactInfo);
+  //   setContactList({ contacts: updatedContacts });
+  // };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(contactList);
-    setContactList((contactList) => [...contactList, contacts]);
+    setContactList((contactList) => [...contactList, formContents]);
 
     console.log(contactList);
   };
 
-  useEffect(() => {
-    console.log(contacts);
-    console.log(contactList);
-  }, []);
+  const list = contactList.map((contact) => contact);
+
+  // useEffect(() => {
+  //   console.log(contacts);
+  //   console.log(contactList);
+  // }, []);
   return (
     <div className="container m-5">
       <div className="row justify-content-center">
@@ -49,7 +51,7 @@ function App() {
                 type="text"
                 name="contactName"
                 onChange={handleChange}
-                value={contacts.contactName}
+                value={formContents.contactName}
               />
             </label>
             <label>
@@ -58,7 +60,7 @@ function App() {
                 type="email"
                 name="email"
                 onChange={handleChange}
-                value={contacts.email}
+                value={formContents.email}
               />
             </label>
             <label>
@@ -67,7 +69,7 @@ function App() {
                 type="tel"
                 name="phone"
                 onChange={handleChange}
-                value={contacts.phone}
+                value={formContents.phone}
               />
             </label>
             <label>
@@ -77,7 +79,7 @@ function App() {
                 name="address"
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 onChange={handleChange}
-                value={contacts.address}
+                value={formContents.address}
               />
             </label>
             <label>
@@ -86,7 +88,7 @@ function App() {
                 type="text"
                 name="city"
                 onChange={handleChange}
-                value={contacts.city}
+                value={formContents.city}
               />
             </label>
             <label>
@@ -95,7 +97,7 @@ function App() {
                 type="text"
                 name="state"
                 onChange={handleChange}
-                value={contacts.state}
+                value={formContents.state}
               />
             </label>
             <label>
@@ -104,13 +106,16 @@ function App() {
                 type="text"
                 name="zip"
                 onChange={handleChange}
-                value={contacts.zip}
+                value={formContents.zip}
               />
             </label>
             <div className="col-4">
               <input type="submit" value="Submit" onClick={handleSubmit} />
             </div>
           </form>
+        </div>
+        <div className="col-4">
+          <Contact key={contactList.length} contactList={contactList} />
         </div>
       </div>
     </div>
