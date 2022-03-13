@@ -14,6 +14,9 @@ const initial = {
 function App() {
   const [formContents, setFormContacts] = useState(initial);
   const [contactList, setContactList] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editIndex, setEditIndex] = useState();
+  const [isExpand, setIsExpand] = useState(false);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -28,17 +31,61 @@ function App() {
   // };
   const handleSubmit = (event) => {
     event.preventDefault();
-    setContactList((contactList) => [...contactList, formContents]);
-
-    console.log(contactList);
+    if (isEdit) {
+      let updatedList = contactList;
+      updatedList[editIndex] = formContents;
+      setContactList(updatedList);
+      setIsEdit(false);
+      setIsExpand((prevState) => !prevState);
+    } else {
+      setContactList((contactList) => [...contactList, formContents]);
+    }
+    console.log(contactItems);
   };
 
-  const list = contactList.map((contact) => contact);
+  const handleCancel = (event) => {
+    setIsEdit(false);
+    setIsExpand((prevState) => !prevState);
+  };
 
   // useEffect(() => {
-  //   console.log(contacts);
-  //   console.log(contactList);
+  //   const sortFunction = (contactList) => {
+  //     return [...contactList].sort(function (a, b) {
+  //       const aName = a.contactName.toLowerCase();
+  //       const bName = b.contactName.toLowerCase();
+  //       if (aName < bName) {
+  //         return -1;
+  //       }
+  //       if (aName > bName) {
+  //         return 1;
+  //       }
+  //     });
+  //   };
+  //   const sorted = sortFunction(contactList);
+  //   setContactList(sorted);
+  //   console.log(sorted);
   // }, []);
+  const contactItems = contactList
+    .sort((a, b) =>
+      a.contactName.toLowerCase() > b.contactName.toLowerCase() ? 1 : -1
+    )
+    .map((contact, index) => (
+      <Contact
+        key={`contact-${index + 1}`}
+        id={index}
+        contact={contact}
+        formContents={formContents}
+        setFormContacts={setFormContacts}
+        contactList={contactList}
+        setContactList={setContactList}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        editIndex={editIndex}
+        setEditIndex={setEditIndex}
+        isExpand={isExpand}
+        setIsExpand={setIsExpand}
+      />
+    ));
   return (
     <div className="container m-5">
       <div className="row justify-content-center">
@@ -110,13 +157,32 @@ function App() {
               />
             </label>
             <div className="col-4">
-              <input type="submit" value="Submit" onClick={handleSubmit} />
+              <button
+                className={
+                  isEdit === true ? "btn btn-warning mt-3" : "btn btn-info mt-3"
+                }
+                type="submit"
+                value="Submit"
+                data-bs-toggle="collapse"
+                data-bs-target={isEdit === true && `#collapse-${editIndex}`}
+                onClick={handleSubmit}
+              >
+                {isEdit === true ? "Update" : "Submit"}
+              </button>
+              {isEdit === true && (
+                <button
+                  className="btn btn-secondary mt-2"
+                  data-bs-toggle="collapse"
+                  data-bs-target={isEdit === true && `#collapse-${editIndex}`}
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </button>
+              )}
             </div>
           </form>
         </div>
-        <div className="col-4">
-          <Contact key={contactList.length} contactList={contactList} />
-        </div>
+        <div className="col-4">{contactItems}</div>
       </div>
     </div>
   );
