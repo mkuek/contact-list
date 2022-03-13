@@ -37,6 +37,16 @@ function App() {
       setContactList(updatedList);
       setIsEdit(false);
       setIsExpand((prevState) => !prevState);
+      setFormContacts({
+        contactName: "",
+        email: "",
+        address: "",
+        phone: "",
+        city: "",
+        state: "",
+        zip: "",
+      });
+      alert("Contact Updated");
     } else {
       setContactList((contactList) => [...contactList, formContents]);
     }
@@ -89,78 +99,108 @@ function App() {
   return (
     <div className="container m-5">
       <div className="row justify-content-center">
-        <div className="col-4">
+        <div className="col-6">
           <h1>Contacts-List</h1>
           <form>
-            <label>
-              name:
-              <input
-                type="text"
-                name="contactName"
-                onChange={handleChange}
-                value={formContents.contactName}
-              />
-            </label>
-            <label>
-              email:
-              <input
-                type="email"
-                name="email"
-                onChange={handleChange}
-                value={formContents.email}
-              />
-            </label>
-            <label>
-              Phone number:
-              <input
-                type="tel"
-                name="phone"
-                onChange={handleChange}
-                value={formContents.phone}
-              />
-            </label>
-            <label>
-              Adress:
-              <input
-                type="tel"
-                name="address"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                onChange={handleChange}
-                value={formContents.address}
-              />
-            </label>
-            <label>
-              City:
-              <input
-                type="text"
-                name="city"
-                onChange={handleChange}
-                value={formContents.city}
-              />
-            </label>
-            <label>
-              State:
-              <input
-                type="text"
-                name="state"
-                onChange={handleChange}
-                value={formContents.state}
-              />
-            </label>
-            <label>
-              Zipcode:
-              <input
-                type="text"
-                name="zip"
-                onChange={handleChange}
-                value={formContents.zip}
-              />
-            </label>
+            <div className="row">
+              <div className="col-6">
+                <label for="contactName" className="form-label">
+                  Name:
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="contactName"
+                    id="contactName"
+                    onChange={handleChange}
+                    value={formContents.contactName}
+                  />
+                </label>
+              </div>
+              <div className="col-6">
+                <label for="email" className="form-label">
+                  Email:
+                  <input
+                    className="form-control"
+                    type="email"
+                    name="email"
+                    id="email"
+                    onChange={handleChange}
+                    value={formContents.email}
+                  />
+                </label>
+              </div>
+              <div className="col-6">
+                <label for="phone" className="form-label">
+                  Phone number:
+                  <input
+                    className="form-control"
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    onChange={handleChange}
+                    value={formContents.phone}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="row m-0 p-0">
+                <label for="address" className="form-label">
+                  Street Address:
+                  <input
+                    className="form-control"
+                    type="tel"
+                    name="address"
+                    id="address"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    onChange={handleChange}
+                    value={formContents.address}
+                  />
+                </label>
+              </div>
+              <div className="col-4">
+                <label for="city" className="form-label">
+                  City:
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="city"
+                    id="city"
+                    onChange={handleChange}
+                    value={formContents.city}
+                  />
+                </label>
+              </div>
+              <div className="col-4">
+                <label for="state" className="form-label">
+                  State:
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="state"
+                    id="state"
+                    onChange={handleChange}
+                    value={formContents.state}
+                  />
+                </label>
+              </div>
+              <div className="col-4">
+                <label for="zip" className="form-label">
+                  Zipcode:
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="zip"
+                    id="zip"
+                    onChange={handleChange}
+                    value={formContents.zip}
+                  />
+                </label>
+              </div>
+            </div>
             <div className="col-4">
               <button
-                className={
-                  isEdit === true ? "btn btn-warning mt-3" : "btn btn-info mt-3"
-                }
+                className={isEdit === true ? "btn btn-warning" : "btn btn-info"}
                 type="submit"
                 value="Submit"
                 data-bs-toggle="collapse"
@@ -171,7 +211,7 @@ function App() {
               </button>
               {isEdit === true && (
                 <button
-                  className="btn btn-secondary mt-2"
+                  className="btn btn-secondary"
                   data-bs-toggle="collapse"
                   data-bs-target={isEdit === true && `#collapse-${editIndex}`}
                   onClick={handleCancel}
@@ -182,7 +222,7 @@ function App() {
             </div>
           </form>
         </div>
-        <div className="col-4">{contactItems}</div>
+        <div className="col-6">{contactItems}</div>
       </div>
     </div>
   );
