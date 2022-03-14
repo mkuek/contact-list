@@ -91,13 +91,13 @@ function App() {
 
   return (
     <div className="container ">
-      <div className="row">
-        <div className="col-6 offset-m-1">
-          <div className="row align-items-center border border-dark my-3">
-            <div className="col-6">
+      <div className="row justify-content-center">
+        <div className={`col-lg-6 col-md-6 col-sm-12 px-4`}>
+          <div className="row align-items-center border border-dark my-3 ">
+            <div className="col-lg-6 col-lg-12 text-center">
               <h1>Contacts-List</h1>
             </div>
-            <div className="col">
+            <div className="col mb-2 text-center">
               <a
                 className="btn btn-success btn-sm"
                 href="https://github.com/mkuek/contact-list"
@@ -105,7 +105,7 @@ function App() {
                 Source Code
               </a>
             </div>
-            <div className="col">
+            <div className="col mb-2 text-center">
               <button
                 type="button"
                 className="btn btn-primary btn-sm"
@@ -180,7 +180,7 @@ function App() {
           <div className="row border border-dark">
             <form className="my-2">
               <div className="row">
-                <div className="col-4">
+                <div className="col-lg-4 col-md-12 col-xs-12">
                   <label forhtml="contactName" className="form-label">
                     Name:
                     <input
@@ -193,7 +193,7 @@ function App() {
                     />
                   </label>
                 </div>
-                <div className="col-3">
+                <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                   <label forhtml="phone" className="form-label">
                     Phone number:
                     <input
@@ -206,7 +206,7 @@ function App() {
                     />
                   </label>
                 </div>
-                <div className="col-5">
+                <div className="col-lg-5 col-md-6 col-sm-6 col-xs-12">
                   <label forhtml="email" className="form-label">
                     Email:
                     <input
@@ -220,22 +220,22 @@ function App() {
                   </label>
                 </div>
               </div>
+              <div className="col-lg-12">
+                <label forhtml="address" className="form-label">
+                  Street Address:
+                  <input
+                    className="form-control"
+                    type="tel"
+                    name="address"
+                    id="address"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    onChange={handleChange}
+                    value={formContents.address}
+                  />
+                </label>
+              </div>
               <div className="row">
-                <div className="row m-0 p-0">
-                  <label forhtml="address" className="form-label">
-                    Street Address:
-                    <input
-                      className="form-control"
-                      type="tel"
-                      name="address"
-                      id="address"
-                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                      onChange={handleChange}
-                      value={formContents.address}
-                    />
-                  </label>
-                </div>
-                <div className="col-4">
+                <div className="col-lg-4 col-md-12 col-sm-6 ">
                   <label forhtml="city" className="form-label">
                     City:
                     <input
@@ -248,7 +248,7 @@ function App() {
                     />
                   </label>
                 </div>
-                <div className="col-4">
+                <div className="col-lg-4 col-md-6 col-sm-6 ">
                   <label forhtml="state" className="form-label">
                     State:
                     <input
@@ -261,7 +261,7 @@ function App() {
                     />
                   </label>
                 </div>
-                <div className="col-4">
+                <div className="col-lg-4 col-md-6 col-sm-6 ">
                   <label forhtml="zip" className="form-label">
                     Zipcode:
                     <input
@@ -302,7 +302,9 @@ function App() {
             </form>
           </div>
         </div>
-        <div className="col-6 col-xl-4 my-3">{contactItems}</div>
+        {contactList.length > 0 && (
+          <div className="col-md-6 col-xl-4 my-3">{contactItems}</div>
+        )}
       </div>
     </div>
   );
