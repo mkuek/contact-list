@@ -49,6 +49,15 @@ function App() {
       alert("Contact Updated");
     } else {
       setContactList((contactList) => [...contactList, formContents]);
+      setFormContacts({
+        contactName: "",
+        email: "",
+        address: "",
+        phone: "",
+        city: "",
+        state: "",
+        zip: "",
+      });
     }
     console.log(contactItems);
   };
@@ -58,23 +67,6 @@ function App() {
     setIsExpand((prevState) => !prevState);
   };
 
-  // useEffect(() => {
-  //   const sortFunction = (contactList) => {
-  //     return [...contactList].sort(function (a, b) {
-  //       const aName = a.contactName.toLowerCase();
-  //       const bName = b.contactName.toLowerCase();
-  //       if (aName < bName) {
-  //         return -1;
-  //       }
-  //       if (aName > bName) {
-  //         return 1;
-  //       }
-  //     });
-  //   };
-  //   const sorted = sortFunction(contactList);
-  //   setContactList(sorted);
-  //   console.log(sorted);
-  // }, []);
   const contactItems = contactList
     .sort((a, b) =>
       a.contactName.toLowerCase() > b.contactName.toLowerCase() ? 1 : -1
@@ -96,133 +88,221 @@ function App() {
         setIsExpand={setIsExpand}
       />
     ));
+
   return (
-    <div className="container m-5">
-      <div className="row justify-content-center">
-        <div className="col-6">
-          <h1>Contacts-List</h1>
-          <form>
-            <div className="row">
-              <div className="col-6">
-                <label for="contactName" className="form-label">
-                  Name:
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="contactName"
-                    id="contactName"
-                    onChange={handleChange}
-                    value={formContents.contactName}
-                  />
-                </label>
-              </div>
-              <div className="col-6">
-                <label for="email" className="form-label">
-                  Email:
-                  <input
-                    className="form-control"
-                    type="email"
-                    name="email"
-                    id="email"
-                    onChange={handleChange}
-                    value={formContents.email}
-                  />
-                </label>
-              </div>
-              <div className="col-6">
-                <label for="phone" className="form-label">
-                  Phone number:
-                  <input
-                    className="form-control"
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    onChange={handleChange}
-                    value={formContents.phone}
-                  />
-                </label>
-              </div>
+    <div className="container ">
+      <div className="row">
+        <div className="col-6 offset-m-1">
+          <div className="row align-items-center border border-dark my-3">
+            <div className="col-6">
+              <h1>Contacts-List</h1>
             </div>
-            <div className="row">
-              <div className="row m-0 p-0">
-                <label for="address" className="form-label">
-                  Street Address:
-                  <input
-                    className="form-control"
-                    type="tel"
-                    name="address"
-                    id="address"
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    onChange={handleChange}
-                    value={formContents.address}
-                  />
-                </label>
-              </div>
-              <div className="col-4">
-                <label for="city" className="form-label">
-                  City:
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="city"
-                    id="city"
-                    onChange={handleChange}
-                    value={formContents.city}
-                  />
-                </label>
-              </div>
-              <div className="col-4">
-                <label for="state" className="form-label">
-                  State:
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="state"
-                    id="state"
-                    onChange={handleChange}
-                    value={formContents.state}
-                  />
-                </label>
-              </div>
-              <div className="col-4">
-                <label for="zip" className="form-label">
-                  Zipcode:
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="zip"
-                    id="zip"
-                    onChange={handleChange}
-                    value={formContents.zip}
-                  />
-                </label>
-              </div>
-            </div>
-            <div className="col-4">
-              <button
-                className={isEdit === true ? "btn btn-warning" : "btn btn-info"}
-                type="submit"
-                value="Submit"
-                data-bs-toggle="collapse"
-                data-bs-target={isEdit === true && `#collapse-${editIndex}`}
-                onClick={handleSubmit}
+            <div className="col">
+              <a
+                className="btn btn-success btn-sm"
+                href="https://github.com/mkuek/contact-list"
               >
-                {isEdit === true ? "Update" : "Submit"}
+                Source Code
+              </a>
+            </div>
+            <div className="col">
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                Requirements
               </button>
-              {isEdit === true && (
+              <div
+                className="modal fade"
+                id="exampleModal"
+                tabIndex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h4 className="modal-title" id="exampleModalLabel">
+                        Project Requirements
+                      </h4>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="row">
+                        <div className="col-10 offset-1">
+                          <h4>
+                            <strong>Contact List</strong>
+                          </h4>
+                          <ul>
+                            <li>
+                              Create some initial data that will always populate
+                              your list on reload.
+                            </li>
+                            <li>
+                              The contact list should always be sorted in
+                              alphabetical order by name.
+                            </li>
+                            <li>
+                              The initial view of the list should only show the
+                              contact's name, city, and state.
+                            </li>
+                            <li>
+                              When clicked the contact's entire information
+                              should be displayed.
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="col-10 offset-1">
+                          <h4>Editing and Deleting</h4>
+                          <ul>
+                            <li>Create a way to delete contacts.</li>
+                            <li>
+                              Create a way to edit contacts. Try to reuse your
+                              add form in some way so you don't have to create
+                              two different forms.
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row border border-dark">
+            <form className="my-2">
+              <div className="row">
+                <div className="col-4">
+                  <label forhtml="contactName" className="form-label">
+                    Name:
+                    <input
+                      className="form-control col-lg"
+                      type="text"
+                      name="contactName"
+                      id="contactName"
+                      onChange={handleChange}
+                      value={formContents.contactName}
+                    />
+                  </label>
+                </div>
+                <div className="col-3">
+                  <label forhtml="phone" className="form-label">
+                    Phone number:
+                    <input
+                      className="form-control"
+                      type="tel"
+                      name="phone"
+                      id="phone"
+                      onChange={handleChange}
+                      value={formContents.phone}
+                    />
+                  </label>
+                </div>
+                <div className="col-5">
+                  <label forhtml="email" className="form-label">
+                    Email:
+                    <input
+                      className="form-control"
+                      type="email"
+                      name="email"
+                      id="email"
+                      onChange={handleChange}
+                      value={formContents.email}
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="row m-0 p-0">
+                  <label forhtml="address" className="form-label">
+                    Street Address:
+                    <input
+                      className="form-control"
+                      type="tel"
+                      name="address"
+                      id="address"
+                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      onChange={handleChange}
+                      value={formContents.address}
+                    />
+                  </label>
+                </div>
+                <div className="col-4">
+                  <label forhtml="city" className="form-label">
+                    City:
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="city"
+                      id="city"
+                      onChange={handleChange}
+                      value={formContents.city}
+                    />
+                  </label>
+                </div>
+                <div className="col-4">
+                  <label forhtml="state" className="form-label">
+                    State:
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="state"
+                      id="state"
+                      onChange={handleChange}
+                      value={formContents.state}
+                    />
+                  </label>
+                </div>
+                <div className="col-4">
+                  <label forhtml="zip" className="form-label">
+                    Zipcode:
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="zip"
+                      id="zip"
+                      onChange={handleChange}
+                      value={formContents.zip}
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className="col-4">
                 <button
-                  className="btn btn-secondary"
+                  className={
+                    isEdit === true ? "btn btn-warning" : "btn btn-secondary"
+                  }
+                  type="submit"
+                  value="Submit"
                   data-bs-toggle="collapse"
                   data-bs-target={isEdit === true && `#collapse-${editIndex}`}
-                  onClick={handleCancel}
+                  onClick={handleSubmit}
                 >
-                  Cancel
+                  {isEdit === true ? "Update" : "Submit"}
                 </button>
-              )}
-            </div>
-          </form>
+                {isEdit === true && (
+                  <button
+                    className="btn btn-secondary"
+                    data-bs-toggle="collapse"
+                    data-bs-target={isEdit === true && `#collapse-${editIndex}`}
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="col-6">{contactItems}</div>
+        <div className="col-6 col-xl-4 my-3">{contactItems}</div>
       </div>
     </div>
   );

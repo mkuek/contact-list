@@ -33,9 +33,9 @@ const Contact = ({
   };
 
   return (
-    <div className="card text-center">
+    <div className="card border-dark text-center">
       <div className="card-body p-1">
-        <h3 className="card-title">{contact.contactName}</h3>
+        <h3 className="card-title">{contact.contactName.toUpperCase()}</h3>
         <h4 className="card-text">{contact.city}</h4>
         <h4 className="card-text mb-0">{contact.state}</h4>
         <div className="collapse" id={`collapse-${id}`}>
