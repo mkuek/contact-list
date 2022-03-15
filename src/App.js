@@ -94,7 +94,7 @@ function App() {
       <div className="row justify-content-center">
         <div className={`col-lg-6 col-md-6 col-sm-12 px-4`}>
           <div className="row align-items-center border border-dark my-3 ">
-            <div className="col-lg-6 col-lg-12 text-center">
+            <div className="col-xl-6 col-lg-12 text-center">
               <h1>Contacts-List</h1>
             </div>
             <div className="col mb-2 text-center">
