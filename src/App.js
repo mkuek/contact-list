@@ -105,7 +105,7 @@ function App() {
                 Source Code
               </a>
             </div>
-            <div className="col mb-2 text-center">
+            <div className="col mb-2">
               <button
                 type="button"
                 className="btn btn-primary btn-sm"
